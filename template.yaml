@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  go-hello-world
+
+  Sample SAM Template for go-hello-world
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 5
+    MemorySize: 256
+
+Resources:
+  GoPostUnicornFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./
+      Handler: ./dist/post-unicorn
+      Runtime: go1.x
+      Architectures:
+        - x86_64
+      Events:
+        GoPostUnicorn:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /go/unicorn
+            Method: POST
+  GoSearchUnicornsFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./
+      Handler: ./dist/search-unicorns
+      Runtime: go1.x
+      Architectures:
+        - x86_64
+      Events:
+        GoSearchUnicorns:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /go/unicorn
+            Method: GET
+  GoGetUnicornFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./
+      Handler: ./dist/get-unicorn
+      Runtime: go1.x
+      Architectures:
+        - x86_64
+      Events:
+        GoSearchUnicorns:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /go/unicorn/{id}
+            Method: GET
+  GoPutUnicornFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./
+      Handler: ./dist/put-unicorn
+      Runtime: go1.x
+      Architectures:
+        - x86_64
+      Events:
+        GoSearchUnicorns:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /go/unicorn/{id}
+            Method: PUT

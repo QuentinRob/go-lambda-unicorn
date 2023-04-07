@@ -1,0 +1,10 @@
+go 1.19
+
+use (
+	./connector
+	./handler/get-unicorn
+	./handler/post-unicorn
+	./handler/put-unicorn
+	./handler/search-unicorns
+	./models
+)
